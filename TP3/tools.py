@@ -1,4 +1,5 @@
 from fonction_decision import prediction
+from data_loader import train_data, valid_data
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -6,8 +7,6 @@ import os
 
 def show(filename, filedir="TP2/tp2_data"):
     
-    train_data = pd.read_csv(os.path.join(filedir, filename))
-    train_data.columns = ['x', 'y']
    
     classes = train_data.y.unique()
     repartitons = {classe : train_data[train_data.y == classe] for classe in classes}
@@ -23,8 +22,7 @@ def show(filename, filedir="TP2/tp2_data"):
 
 def test(filename, delta, filedir="TP2/tp2_data"):
     
-    valid_data = pd.read_csv(os.path.join(filedir, filename))
-    valid_data.columns = ['x', 'y']
+
     x_valid, y_valid = valid_data.x, valid_data.y
     classes = valid_data.y.unique()
 
@@ -44,9 +42,9 @@ def test(filename, delta, filedir="TP2/tp2_data"):
         for classe2 in   classes:
             matrice_confusion.loc[classe1, classe2] = valid_data[(valid_data.y_pred == classe1) & (valid_data.y == classe2)].shape[0]
     
-    print("erreurs :", erreurs)
-    print("Pourcentage des erreurs :", erreurs_percent, "%")
-    print("matrices de confusion :\n", matrice_confusion)
+    # print("erreurs :", erreurs)
+    # print("Pourcentage des erreurs :", erreurs_percent, "%")
+    # print("matrices de confusion :\n", matrice_confusion)
     return erreurs_percent, matrice_confusion
 
 
