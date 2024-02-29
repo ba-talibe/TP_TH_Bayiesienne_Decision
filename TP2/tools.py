@@ -21,19 +21,22 @@ def show(filename, filedir="TP2/tp2_data"):
 
 
 
-def test(filename, delta):
+def test(filename, delta, filedir="TP2/tp2_data"):
     
     valid_data = pd.read_csv(os.path.join(filedir, filename))
     valid_data.columns = ['x', 'y']
-    y_pred = prediction(valid_data.y, 60)
+    x_valid, y_valid = valid_data.x, valid_data.y
+    classes = valid_data.y.unique()
 
+    y_pred = prediction(valid_data.y, delta)
+    valid_data["y_pred"] = y_pred
     erreurs = np.array(y_pred != y_valid).astype(int)
     erreurs = np.sum(erreurs)
 
-    matrice_confusion= np.array((len(classes), (classe)))
+    matrice_confusion = np.array((len(classes), len(classes)))
     for i in range(len(classes)):
         for j in range(len(classes)):
-            matrice_confusion[i, j] = df[(df.y_pred == i) & (df.y_valid == j)].size
-
+            matrice_confusion[i, j] = valid_data[(valid_data.y_pred == i) & (valid_data.y == j)].to_numpy().shape[0]
+    
     print("erreurs :", erreurs)
     print("matrices de confusion :", matrice_confusion)
