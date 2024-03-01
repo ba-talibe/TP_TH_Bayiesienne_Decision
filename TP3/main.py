@@ -1,42 +1,18 @@
 import numpy as np
-from data_loader import train_data, X_train, y_train
+from train_tools import get_optimal_boundary
 from tools import test, show
 
-classes =train_data.y.unique()
-i0 =(np.min(train_data[train_data['y'] == 0 ]["x"]  ), np.max(train_data[train_data['y'] == 0]["x"] )) 
-i1 =(np.min(train_data[train_data['y'] == 1 ]["x"]  ), np.max(train_data[train_data['y'] == 1]["x"] ))
 
-[i0, i1] = sorted([i0, i1], key=lambda x: x[1])
-
-delta = [np.min([i0[1], i1[0]]), np.max([i0[1], i1[0]])]
-delta = [np.floor(delta[0]), np.ceil(delta[1])]
-print("Intervall de recherche : ", delta)
-
-max_iter= 200
-i = 0
-while np.abs(delta[0]-delta[1])> 10**-2:
     
-    delta_i = np.arange(delta[0], delta[1], 10**-2)
-    if len(delta_i) < 2:
-        break
+if __name__ == "__main__":
+    train_filename = "TP3/tp1_data/tp1_data_train.txt"
+    valid_filename = "TP3/tp1_data/tp1_data_valid.txt"
+    show(filename=train_filename, filedir="")
+    delta = get_optimal_boundary(train_filename, filedir="")
 
-    erreurs = np.array([ test("tp1_data_train.txt",delta, filedir="tp1_data")[0] for delta in delta_i ])
+    erreurs, matrice_confusion = test(valid_filename, delta, filedir="")
 
-    ind_min= np.argsort(erreurs)
-
-    delta = sorted(delta_i[ind_min[:2]])
+    print("erreurs :", erreurs)
+    print("matrice de confussion \n")
+    print(matrice_confusion)
     
-
-
-
-print(delta)
-
-print(delta_i)
-    
-
-# delta_i = np.arange(delta[0], delta[1], .2)
-
-# #show("tp1_data_train.txt", filedir="tp1_data")
-
-
-# erreurs = np.array([ test("tp1_data_valid.txt",delta, filedir="tp1_data")[0] for delta in delta_i ])

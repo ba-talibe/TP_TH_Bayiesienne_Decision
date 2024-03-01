@@ -1,12 +1,12 @@
 from fonction_decision import prediction
-from data_loader import train_data, valid_data
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os 
 
-def show(filename, filedir="TP2/tp2_data"):
-    
+def show(filename, filedir="TP1/tp1_data"):
+    train_data = pd.read_csv(os.path.join(filedir, filename))
+    train_data.columns = ['x', 'y']
    
     classes = train_data.y.unique()
     repartitons = {classe : train_data[train_data.y == classe] for classe in classes}
@@ -14,23 +14,24 @@ def show(filename, filedir="TP2/tp2_data"):
     plt.figure()
     for classe in classes:
         card = repartitons[classe].size
-        plt.hist(repartitons[classe].x,bins=15, alpha=.7, label=f"str(classe), {card}")
+        plt.hist(repartitons[classe].x,bins=20, alpha=.7, label=f"str(classe), {card}")
     plt.legend()
     plt.show()
 
 
 
 def test(filename, delta, filedir="TP2/tp2_data"):
-    
 
-    x_valid, y_valid = valid_data.x, valid_data.y
+    valid_data = pd.read_csv(os.path.join(filedir, filename))
+    valid_data.columns = ['x', 'y']
+
     classes = valid_data.y.unique()
 
     y_pred = prediction(valid_data.x, delta)
     valid_data["y_pred"] = y_pred
-    erreurs = np.array(y_pred != y_valid).astype(int)
+    erreurs = np.array(y_pred != valid_data.y).astype(int)
     erreurs = np.sum(erreurs)
-    erreurs_percent = 100*erreurs/y_valid.size
+    erreurs_percent = 100*erreurs/valid_data.y.size
 
     matrice_confusion = np.zeros((len(classes), len(classes)))
     matrice_confusion = pd.DataFrame(matrice_confusion)
