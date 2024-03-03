@@ -27,8 +27,8 @@ plt.imshow(matrice_confusion, cmap='YlGnBu', interpolation='nearest')
 
 
 plt.text(0, 0, f"vrai positive : {matrice_confusion[0, 0]}", ha='center', fontsize=12, va='center', color='red')
-plt.text(0, 1, f"faux positive : {matrice_confusion[0, 1]}", ha='center', fontsize=12,  va='center', color='red')
-plt.text(1, 0, f"faux negative : {matrice_confusion[1, 0]}", ha='center', fontsize=12, va='center', color='red')
+plt.text(1, 0, f"faux positive : {matrice_confusion[0, 1]}", ha='center', fontsize=12,  va='center', color='red')
+plt.text(0, 1, f"faux negative : {matrice_confusion[1, 0]}", ha='center', fontsize=12, va='center', color='red')
 plt.text(1, 1, f"vrai negative : {matrice_confusion[1, 1]}", ha='center', fontsize=12, va='center', color='red')
 
 plt.axis('off')
