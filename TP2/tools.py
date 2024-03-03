@@ -13,9 +13,12 @@ def show(filename, filedir="TP2/tp2_data"):
     repartitons = {classe : train_data[train_data.y == classe] for classe in classes}
     
     plt.figure()
+    
     for classe in classes:
         card = repartitons[classe].size
-        plt.hist(repartitons[classe].x,bins=15, alpha=.7, label=f"str(classe), {card}")
+        plt.hist(repartitons[classe].x,bins=15, alpha=.7, label=f"str({classe}), {card}")
+    
+    plt.title(filename)
     plt.legend()
     plt.show()
 
@@ -44,9 +47,38 @@ def test(filename, delta, filedir="TP2/tp2_data"):
         for classe2 in   classes:
             matrice_confusion.loc[classe1, classe2] = valid_data[(valid_data.y_pred == classe1) & (valid_data.y == classe2)].shape[0]
     
+
+    
+    if len(classes) == 2:
+        
+        plt.figure()
+
+        plt.text(.5, .8, f"erreurs : {erreurs}", fontsize=14, ha='center', va='center')
+        plt.text(.5, .7, f"Pourcentage des erreurs : {erreurs_percent} %", fontsize=14, ha='center', va='center')
+        plt.text(.5, .5, f"matrices de confusion :\n {matrice_confusion}", fontsize=14, ha='center', va='center')
+   
+        plt.axis('off')
+        plt.title(filename)
+        plt.show()
+
+        plt.figure()
+        
+        plt.text(0, 0, f"vrai positive : {matrice_confusion.loc[0, 0]}", ha='center', fontsize=12, va='center', color='red')
+        plt.text(0, 1, f"faux positive : {matrice_confusion.loc[0, 1]}", ha='center', fontsize=12,  va='center', color='red')
+        plt.text(1, 0, f"faux negative : {matrice_confusion.loc[1, 0]}", ha='center', fontsize=12, va='center', color='red')
+        plt.text(1, 1, f"vrai negative : {matrice_confusion.loc[1, 1]}", ha='center', fontsize=12, va='center', color='red')
+
+        plt.axis("off")
+        plt.imshow(matrice_confusion, cmap='YlGnBu', interpolation='nearest')
+        plt.title(filename)
+        plt.show()
+
+        
+    
+       
     print("erreurs :", erreurs)
-    print("Pourcentage des erreurs :", erreurs_percent, "%")
-    print("matrices de confusion :\n", matrice_confusion)
+    print(f"Pourcentage des erreurs :, {erreurs_percent} %")
+    print(f"matrices de confusion :\n, {matrice_confusion}")
     return erreurs_percent, matrice_confusion
 
 
