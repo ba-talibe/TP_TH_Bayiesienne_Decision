@@ -10,5 +10,6 @@ erreurs = erreurs.astype(int)
 erreurs = np.sum(erreurs)
 erreurs_percent = 100*erreurs/y_valid.size
 if __name__ == "__main__":
+    print(y_valid.size)
     print("nombre d'erreurs :", erreurs)
     print("Pourcentage des erreurs :", erreurs_percent, "%")

@@ -2,11 +2,10 @@ import pandas as pd
 import numpy as np 
 
 
-train_data = pd.read_csv("TP1/tp1_data/tp1_data_train.txt")
-validation_data = pd.read_csv("TP1/tp1_data/tp1_data_valid.txt")
+train_data = pd.read_csv("TP1/tp1_data/tp1_data_train.txt", names=['x', 'y'])
+validation_data = pd.read_csv("TP1/tp1_data/tp1_data_valid.txt", names=["x", "y"])
 
-train_data.columns = ['x', 'y']
-validation_data.columns = ["x", "y"]
+
 
 X_train = train_data.x.values
 y_train = train_data.y.values

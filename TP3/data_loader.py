@@ -18,3 +18,4 @@ if __name__ == '__main__':
     print("cardinal classe 1", np.sum(y_train))
     print("cardinal classe 0", y_train.size - np.sum(y_train))
     print("[+] Done")
+
