@@ -21,12 +21,16 @@ def show(filename, filedir="TP2/tp2_data", save=True, title=None, delta =None):
         plt.hist(repartitons[classe].x,bins=20, alpha=.7, label=f"{str(classe)}, {card}")
 
     plt.title(filename)
-    plt.legend()
+    
     if title is not None:
         plt.title(title)
     if delta is not None:
         for deltai in delta:
-            plt.axvline(deltai)
+            plt.axvline(deltai )
+            plt.text(deltai, 2, f"{np.round(deltai)}")
+
+
+    plt.legend()
     plt.show()
 
 
