@@ -12,7 +12,7 @@ if __name__ == '__main__':
     show(train_data)
     plt.show()
     # x_min = input("entre x1 et x2 min:").split(' ')
-    # x_min = [float(x) for x in x_min]
+    # x_min = [float(x) for x in x_min]p
     # x_max = input("entre x1 et x2 max:").split(' ')
     # x_max = [float(x) for x in x_max]
     x_min, x_max = train_perceptron(train_data, iters=100)
