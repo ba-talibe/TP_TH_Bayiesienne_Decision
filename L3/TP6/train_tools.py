@@ -35,7 +35,6 @@ def bayesienne_decision(train_data):
 
     sigma0 = xc_wO.T@xc_wO/xc_wO.shape[0]
     sigma1 = xc_w1.T@xc_w1/xc_w1.shape[0]
-
     return mu0, sigma0, mu1, sigma1
 
     

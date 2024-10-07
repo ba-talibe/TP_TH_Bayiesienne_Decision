@@ -21,6 +21,7 @@ def plot_decision(x1_min, x1_max, x2_min, x2_max, prediction, sample = 300):
     sample : int, optional
         Number of samples on each feature (default is 300)
     """
+    
     x1_list = np.linspace(x1_min, x1_max, sample)
     x2_list = np.linspace(x2_min, x2_max, sample)
     y_grid_pred = [[prediction(np.array([x1,x2])) for x1 in x1_list] for x2 in x2_list] 
